@@ -10,21 +10,17 @@ function Home() {
 
       <div classNameName="columns  is-centered is-vcentered is-mobile">
         <div className="column is-narrow has-text-centered">
-          <h1 style={{ color: "Black", fontSize: "20px" }}>Welcome To Admin Page</h1>
+          <h1 style={{ color: "Black", fontSize: "20px" }}>Halo, Sekertariat Gereja!</h1>
         </div>
       </div>
 
       <div className="columns is-centered is-vcentered is-mobile">
         <div className="column is-narrow has-text-centered">
-          <button onClick={()=>navigate.call(window.location.href=`/daftargereja`)}  id='start' className="button is-link">Daftar Gereja</button>
+          <button onClick={()=>navigate.call(window.location.href=`/kegiatanumum`)}  id='start' className="button is-link">Daftar Kegiatan Umum</button>
         </div>
       </div>
 
-      <div className="columns is-centered is-vcentered is-mobile">
-        <div className="column is-narrow has-text-centered">
-          <button onClick={()=>navigate.call(window.location.href=`/daftaruser`)} id='scoreboard' className="button is-link">Daftar User</button>
-        </div>
-      </div>
+     
 
     </body>
 

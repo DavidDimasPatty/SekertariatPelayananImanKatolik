@@ -15,10 +15,11 @@ require('dotenv').config()
 
 app.get('/api/user',function (req,res){
     console.log(req.query);
-    dbm.getIdUser(req.query.username,req.query.password).then((result)=>{
+    dbm.getIdSekertariat(req.query.username,req.query.password).then((result)=>{
         res.send(result)
     })
 });
+
 
 app.get('/api/getgereja',function (req,res){
     dbm.getAllGereja().then((result)=>{

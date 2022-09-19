@@ -23,6 +23,13 @@ const adminscheme = new Schema({
    },{collection:'admin'});
 var admin=mongoose.model('admin',adminscheme)
 
+const sekeratiatscheme = new Schema({
+    password: String,
+    username: String
+  
+   },{collection:'sekertariat'});
+var sekertariat=mongoose.model('sekertariat',sekeratiatscheme)
+
 const gerejascheme = new Schema({
     nama:String,
     address:String,
@@ -70,6 +77,23 @@ async function getIdUser(id,pw){
      await admin.find({
         $and: [
             {user: id},
+             {password: pw} 
+        ]
+    }).then((res)=>{
+        arr=res;
+        console.log(res)
+    }).catch((e)=>{
+        console.log(e)
+    })
+    return arr
+}
+
+async function getIdSekertariat(id,pw){
+    var arr=[]
+    console.log(id);
+     await sekertariat.find({
+        $and: [
+            {username: id},
              {password: pw} 
         ]
     }).then((res)=>{
@@ -178,5 +202,6 @@ deletegereja:deletegereja,
 deleteUser:deleteUser,
 bannedUser:bannedUser,
 updatePassword:updatePassword,
-getUserEmail:getUserEmail
+getUserEmail:getUserEmail,
+getIdSekertariat:getIdSekertariat
 }
