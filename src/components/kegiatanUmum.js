@@ -14,11 +14,11 @@ const KegiatanUmum = () => {
     const devEnv = process.env.NODE_ENV !== "production";
     const { REACT_APP_DEV_URL, REACT_APP_PROD_URL } = process.env;
     const deleteGereja = async (id) => {
-        await axios.delete(`${devEnv ? process.env.REACT_APP_DEV_URL : process.env.REACT_APP_PROD_URL}/deletegereja`, {
+        await axios.delete(`${devEnv ? process.env.REACT_APP_DEV_URL : process.env.REACT_APP_PROD_URL}/deletekegiatan`, {
             data: {
                 id: id
             },
-        }).then(window.location.href = "/daftargereja")
+        }).then(window.location.href = "/kegiatanumum")
     }
 
     const getAllGereja = async () => {
@@ -43,7 +43,7 @@ const KegiatanUmum = () => {
         <div>
 
             <Link to="/home" className='button is-primary mt-2 mr-3 mb-3'>Back To Home</Link>
-            <Link to="/pageaddgereja" className='button is-primary mt-2'>Add Gereja</Link>
+            <Link to={"/addkegiatan/"+localStorage.getItem("token")} className='button is-primary mt-2'>Add Kegiatan</Link>
             <table className='table is-stripped is-fullwidth'>
                 <thead>
                     <tr>

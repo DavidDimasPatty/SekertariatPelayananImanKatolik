@@ -81,9 +81,18 @@ app.patch('/api/updategereja',function(req,res){
     dbm.addGereja(req)
   })
 
+  app.post('/api/addkegiatan',function(req,res){
+    dbm.addKegiatan(req)
+  })
+
   app.delete('/api/deletegereja',function(req,res){
    dbm.deletegereja(req.body.id)
  })
+
+ app.delete('/api/deletekegiatan',function(req,res){
+  dbm.deletekegiatan(req.body.id)
+})
+
  app.delete('/api/deleteuser',function(req,res){
     dbm.deleteUser(req.body.id)
   })

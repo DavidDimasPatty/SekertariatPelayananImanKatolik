@@ -44,16 +44,10 @@ const umumscheme = new Schema({
     namaKegiatan: String,
     idGereja: ObjectID,
     temaKegiatan: String,
-    jeniskegiatan: String,
+    jenisKegiatan: String,
     deskripsiKegiatan: String,
     tamu: String,
-    kapasitas:{
-        type: {
-            type: Number,
-            required: true,
-            min: 0
-        }
-    },
+    kapasitas: Number,
     tanggal: Date,
     lokasi: String,
 
@@ -114,7 +108,8 @@ async function getAllUmum(id) {
     await umum.find({
         $and: [
             { idGereja: id }
-        ]}).then((res) => {
+        ]
+    }).then((res) => {
         arr = res;
     }).catch((e) => {
         console.log(e)
@@ -127,7 +122,8 @@ async function getIdUmum(id) {
     await umum.find({
         $and: [
             { _id: id }
-        ]}).then((res) => {
+        ]
+    }).then((res) => {
         arr = res;
     }).catch((e) => {
         console.log(e)
@@ -190,15 +186,18 @@ async function updateGereja(item) {
 async function updateKegiatan(item) {
     await umum.updateOne(
         { _id: item.id },
-        { $set: {  
-            namaKegiatan:item.namaKegiatan,
-            lokasi:item.lokasi,
-            tanggal:item.tanggal,
-            jenisKegiatan:item.jenisKegiatan,
-            temaKegiatan:item.temaKegiatan,
-            deskripsiKegiatan:item.deskripsiKegiatan,
-            tamu:item.tamu,
-            kapasitas:item.kapasitas} },
+        {
+            $set: {
+                namaKegiatan: item.namaKegiatan,
+                lokasi: item.lokasi,
+                tanggal: item.tanggal,
+                jenisKegiatan: item.jenisKegiatan,
+                temaKegiatan: item.temaKegiatan,
+                deskripsiKegiatan: item.deskripsiKegiatan,
+                tamu: item.tamu,
+                kapasitas: item.kapasitas
+            }
+        },
         { upsert: true } // Make this update into an upsert
     );
 }
@@ -222,9 +221,32 @@ function addGereja(item) {
     var data = new gereja(newData);
     data.save();
 }
+
+async function addKegiatan(item) {
+    console.log(item.body.data.idGereja);
+    const newData = {
+        idGereja: item.body.data.idGereja,
+        namaKegiatan: item.body.data.namaKegiatan,
+        lokasi: item.body.data.lokasi,
+        tanggal: item.body.data.tanggal,
+        jenisKegiatan: item.body.data.jenisKegiatan,
+        temaKegiatan: item.body.data.temaKegiatan,
+        deskripsiKegiatan: item.body.data.deskripsiKegiatan,
+        tamu: item.body.data.tamu,
+        kapasitas: item.body.data.kapasitas
+    }
+    var data = new umum(newData);
+    data.save();
+
+}
 function deletegereja(item) {
     gereja.findByIdAndRemove(item).exec();
 }
+
+function deletekegiatan(item) {
+    umum.findByIdAndRemove(item).exec();
+}
+
 
 function deleteUser(item) {
     user.findByIdAndRemove(item).exec();
@@ -266,7 +288,9 @@ module.exports = {
     updatePassword: updatePassword,
     getUserEmail: getUserEmail,
     getIdSekertariat: getIdSekertariat,
-    getAllUmum:getAllUmum,
-    getIdUmum:getIdUmum,
-    updateKegiatan:updateKegiatan
+    getAllUmum: getAllUmum,
+    getIdUmum: getIdUmum,
+    updateKegiatan: updateKegiatan,
+    addKegiatan:addKegiatan,
+    deletekegiatan:deletekegiatan
 }
