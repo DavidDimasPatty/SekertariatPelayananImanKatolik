@@ -4,11 +4,14 @@ import axios from "axios";
 import { useNavigate,useParams} from 'react-router-dom';
 
 const EditKegiatan = () => {
-    const [nama, setNama]=useState('');
-    const [address, setAddress]=useState('');
+    const [namaKegiatan, setNamaKegiatan]=useState('');
+    const [lokasi, setLokasi]=useState('');
+    const [tanggal, setTanggal]=useState('');
+    const [jenis, setJenisKegiatan]=useState('');
+    const [tema, setTema]=useState('');
+    const [deskripsi, setDeskripsi]=useState('');
+    const [tamu, setTamu]=useState('');
     const [kapasitas, setKapasitas]=useState('');
-    const [paroki, setParoki]=useState('');
-    const [lingkungan, setLingkungan]=useState('');
     const nav=useNavigate();
     const {id}=useParams();
 
@@ -21,34 +24,40 @@ const EditKegiatan = () => {
         
             data:{
                 id:id,
-                nama:nama,
-                address:address,
-                kapasitas:kapasitas,
-                paroki:paroki,
-                lingkungan:lingkungan
+                namaKegiatan:namaKegiatan,
+                lokasi:lokasi,
+                tanggal:tanggal,
+                jenis:jenis,
+                tema:tema,
+                deskripsi:deskripsi,
+                tamu:tamu,
+                kapasitas:kapasitas
             }
         }).then( window.location.href="/daftargereja");
     }
 
     useEffect(()=>{
-        getIdGereja();
+        getIdUmum();
     },[]);
 
-    const getIdGereja= async ()=>{
+    const getIdUmum= async ()=>{
         console.log(id)
         const devEnv = process.env.NODE_ENV !== "production";
         const {REACT_APP_DEV_URL, REACT_APP_PROD_URL} = process.env;
     
-        await axios.get(`${devEnv  ? process.env.REACT_APP_DEV_URL : process.env.REACT_APP_PROD_URL}/getidgereja`,{
+        await axios.get(`${devEnv  ? process.env.REACT_APP_DEV_URL : process.env.REACT_APP_PROD_URL}/getidumum`,{
             params:{
                 id:id
             }
         }).then((response)=>{
-            setNama(response.data.nama);
-            setAddress(response.data.address);
-            setKapasitas(response.data.kapasitas);
-            setParoki(response.data.paroki);
-            setLingkungan(response.data.lingkungan);
+            setNamaKegiatan(response.data[0].namaKegiatan);
+            setLokasi(response.data[0].lokasi);
+            setTanggal(response.data[0].tanggal);
+            setKapasitas(response.data[0].kapasitas);
+            setTema(response.data[0].temaKegiatan);
+            setDeskripsi(response.data[0].deskripsiKegiatan);
+            setTamu(response.data[0].tamu);
+            setJenisKegiatan(response.data[0].jenisKegiatan);
         });
         
     }
@@ -74,8 +83,8 @@ const EditKegiatan = () => {
                     <input className="input"
                      type="text"
                      placeholder="question"
-                     value={nama}
-                     onChange={(e) =>setNama(e.target.value)}
+                     value={namaKegiatan}
+                     onChange={(e) =>setNamaKegiatan(e.target.value)}
                      ></input>
                 </div>
                 <div className='field'>
@@ -83,8 +92,8 @@ const EditKegiatan = () => {
                     <input className="input" 
                     type="text"
                      placeholder="option 1"
-                     value={address}
-                     onChange={(e) =>setAddress(e.target.value)}
+                     value={lokasi}
+                     onChange={(e) =>setLokasi(e.target.value)}
                      ></input>
                 </div>
                 <div className='field'>
@@ -100,8 +109,8 @@ const EditKegiatan = () => {
                     <label className='label'>Paroki</label>
                     <input className="input" type="text" 
                     placeholder="option 3"
-                    value={paroki}
-                     onChange={(e) =>setParoki(e.target.value)}
+                    value={tema}
+                     onChange={(e) =>setTema(e.target.value)}
                     ></input>
                 </div>
 
@@ -110,8 +119,8 @@ const EditKegiatan = () => {
                     <input className="input" 
                     type="text" 
                     placeholder="option 4"
-                    value={lingkungan}
-                     onChange={(e) =>setLingkungan(e.target.value)}
+                    value={deskripsi}
+                     onChange={(e) =>setDeskripsi(e.target.value)}
                     ></input>
                 </div>
 

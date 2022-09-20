@@ -122,6 +122,19 @@ async function getAllUmum(id) {
     return arr
 }
 
+async function getIdUmum(id) {
+    var arr = [];
+    await umum.find({
+        $and: [
+            { _id: id }
+        ]}).then((res) => {
+        arr = res;
+    }).catch((e) => {
+        console.log(e)
+    })
+    return arr
+}
+
 async function getIdSekertariat(id, pw) {
     var arr = []
     console.log(id);
@@ -238,5 +251,6 @@ module.exports = {
     updatePassword: updatePassword,
     getUserEmail: getUserEmail,
     getIdSekertariat: getIdSekertariat,
-    getAllUmum:getAllUmum
+    getAllUmum:getAllUmum,
+    getIdUmum:getIdUmum
 }

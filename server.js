@@ -34,6 +34,13 @@ app.get('/api/getumum',function (req,res){
   })
 });
 
+app.get('/api/getidumum',function (req,res){
+
+  dbm.getIdUmum(req.query.id).then((result)=>{
+      res.send(result)
+  })
+});
+
 app.get('/api/getuser',function (req,res){
     dbm.getAllUser().then((result)=>{
         res.send(result)
