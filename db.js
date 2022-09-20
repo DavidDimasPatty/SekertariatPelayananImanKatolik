@@ -54,7 +54,7 @@ const umumscheme = new Schema({
             min: 0
         }
     },
-    tanggal: String,
+    tanggal: Date,
     lokasi: String,
 
 }, { collection: 'umum' });
@@ -187,6 +187,21 @@ async function updateGereja(item) {
     );
 }
 
+async function updateKegiatan(item) {
+    await umum.updateOne(
+        { _id: item.id },
+        { $set: {  
+            namaKegiatan:item.namaKegiatan,
+            lokasi:item.lokasi,
+            tanggal:item.tanggal,
+            jenisKegiatan:item.jenisKegiatan,
+            temaKegiatan:item.temaKegiatan,
+            deskripsiKegiatan:item.deskripsiKegiatan,
+            tamu:item.tamu,
+            kapasitas:item.kapasitas} },
+        { upsert: true } // Make this update into an upsert
+    );
+}
 async function updatePassword(item) {
     await user.updateOne(
         { email: item.email },
@@ -252,5 +267,6 @@ module.exports = {
     getUserEmail: getUserEmail,
     getIdSekertariat: getIdSekertariat,
     getAllUmum:getAllUmum,
-    getIdUmum:getIdUmum
+    getIdUmum:getIdUmum,
+    updateKegiatan:updateKegiatan
 }

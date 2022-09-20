@@ -67,7 +67,7 @@ const KegiatanUmum = () => {
                             <td>{Gereja.namaKegiatan}</td>
                             <td>{Gereja.temaKegiatan}</td>
                             <td>{Gereja.deskripsiKegiatan}</td>
-                            <td>{Gereja.JenisKegiatan}</td>
+                            <td>{Gereja.jenisKegiatan}</td>
                             <td>{Gereja.kapasitas}</td>
                             <td>{Gereja.lokasi}</td>
                             <td>{Gereja.tanggal}</td>

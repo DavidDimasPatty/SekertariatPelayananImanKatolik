@@ -63,6 +63,10 @@ app.patch('/api/updategereja',function(req,res){
    dbm.updateGereja(req.body.data)
   })
 
+  app.patch('/api/updatekegiatan',function(req,res){
+    dbm.updateKegiatan(req.body.data)
+   })
+
   app.patch('/api/updatepassword',function(req,res){
     dbm.updatePassword(req.body.data).then((result)=>{
       res.send(result)

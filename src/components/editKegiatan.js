@@ -12,28 +12,29 @@ const EditKegiatan = () => {
     const [deskripsi, setDeskripsi]=useState('');
     const [tamu, setTamu]=useState('');
     const [kapasitas, setKapasitas]=useState('');
+    var category=["Retret","Rekoleksi","Pendalaman Kitab Suci"]
     const nav=useNavigate();
     const {id}=useParams();
 
-    const UpdateGereja = async (e)=>{
+    const UpdateKegiatan = async (e)=>{
         const devEnv = process.env.NODE_ENV !== "production";
         const {REACT_APP_DEV_URL, REACT_APP_PROD_URL} = process.env;
     
         e.preventDefault();
-        await axios.patch(`${devEnv  ? process.env.REACT_APP_DEV_URL : process.env.REACT_APP_PROD_URL}/updategereja`,{
+        await axios.patch(`${devEnv  ? process.env.REACT_APP_DEV_URL : process.env.REACT_APP_PROD_URL}/updatekegiatan`,{
         
             data:{
                 id:id,
                 namaKegiatan:namaKegiatan,
                 lokasi:lokasi,
                 tanggal:tanggal,
-                jenis:jenis,
-                tema:tema,
-                deskripsi:deskripsi,
+                jenisKegiatan:jenis,
+                temaKegiatan:tema,
+                deskripsiKegiatan:deskripsi,
                 tamu:tamu,
                 kapasitas:kapasitas
             }
-        }).then( window.location.href="/daftargereja");
+        }).then( window.location.href="/kegiatanumum");
     }
 
     useEffect(()=>{
@@ -77,63 +78,84 @@ const EditKegiatan = () => {
 
   return (
     <div>
-            <form onSubmit={UpdateGereja}>
+            <form onSubmit={UpdateKegiatan}>
                 <div className='field'>
-                    <label className='label'>Nama</label>
+                    <label className='label'>Nama Kegiatan</label>
                     <input className="input"
                      type="text"
-                     placeholder="question"
+                     placeholder="Nama Kegiatan"
                      value={namaKegiatan}
                      onChange={(e) =>setNamaKegiatan(e.target.value)}
                      ></input>
                 </div>
                 <div className='field'>
-                    <label className='label'>Address</label>
+                    <label className='label'>Tema Kegiatan</label>
+                    <input className="input"
+                     type="text"
+                     placeholder="Tema Kegiatan"
+                     value={tema}
+                     onChange={(e) =>setTema(e.target.value)}
+                     ></input>
+                </div>
+                <div className='field'>
+                    <label className='label'>Deskripsi Kegiatan</label>
+                    <textarea className="input"
+                    
+                     type="text"
+                     placeholder="Deskripsi Kegiatan"
+                     value={deskripsi}
+                     onChange={(e) =>setDeskripsi(e.target.value)}
+                     ></textarea>
+                </div>
+                <div className='field'>
+                    <label className='label'>Jenis Kegiatan</label>
+                    <select  onChange={(e) =>setJenisKegiatan(e.target.value)} > 
+                   
+                    { category.map((category,key)=>(
+                        <option value={category} selected={(jenis=== category) ? true : false} >{category}</option>
+                     ))}
+                      
+                    </select>
+                </div> 
+                <div className='field'>
+                    <label className='label'>Tamu</label>
+                    <input className="input"
+                     type="text"
+                     placeholder="Nama Tamu (Bisa Lebih Dari 1)"
+                     value={tamu}
+                     onChange={(e) =>setTamu(e.target.value)}
+                     ></input>
+                </div>
+                <div className='field'>
+                    <label className='label'>Lokasi</label>
                     <input className="input" 
                     type="text"
-                     placeholder="option 1"
+                     placeholder="Lokasi Diadakan Kegiatan"
                      value={lokasi}
                      onChange={(e) =>setLokasi(e.target.value)}
                      ></input>
                 </div>
                 <div className='field'>
+                    <label className='label'>Tanggal</label>
+                    <input className="input" 
+                    type="date"
+                     value={tanggal.toString("yyyy-MM-dd")}
+                     onChange={(e) =>setTanggal(e.target.value)}
+                     ></input>
+                </div>
+                <div className='field'>
                     <label className='label'>Kapasitas</label>
                     <input className="input" 
-                    type="text"
-                     placeholder="option 2"
+                    type="number"
+                     placeholder="Kapasitas Kegiatan"
                      value={kapasitas}
                      onChange={(e) =>setKapasitas(e.target.value)}
                      ></input>
                 </div>
-                <div className='field'>
-                    <label className='label'>Paroki</label>
-                    <input className="input" type="text" 
-                    placeholder="option 3"
-                    value={tema}
-                     onChange={(e) =>setTema(e.target.value)}
-                    ></input>
-                </div>
+              
 
-                <div className='field'>
-                    <label className='label'>Lingkungan</label>
-                    <input className="input" 
-                    type="text" 
-                    placeholder="option 4"
-                    value={deskripsi}
-                     onChange={(e) =>setDeskripsi(e.target.value)}
-                    ></input>
-                </div>
-
-                {/* <div className='field'>
-                    <label className='label'>Category</label>
-                    <select  onChange={(e) =>setCategory2(e.target.value)} > 
-                   
-                    { category.map((category,key)=>(
-                        <option value={category._id} selected={(category2=== category._id) ? true : false} >{category.name}</option>
-                     ))}
-                      
-                    </select>
-                </div> */}
+               
+             
 
                 <div className='field'>
                         <button className='button is-primary'>Update</button>
