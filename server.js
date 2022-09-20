@@ -27,6 +27,12 @@ app.get('/api/getgereja',function (req,res){
     })
 });
 
+app.get('/api/getumum',function (req,res){
+  dbm.getAllUmum(req.query.id).then((result)=>{
+      res.send(result)
+  })
+});
+
 app.get('/api/getuser',function (req,res){
     dbm.getAllUser().then((result)=>{
         res.send(result)
