@@ -4,11 +4,12 @@ import axios from "axios";
 import "bulma/css/bulma.min.css";
 
 const Login = () => {
-
+  window.localStorage.setItem('token',"");
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
 
   /* TOKEN */
+
 
 
   const nav = useNavigate();
@@ -34,6 +35,7 @@ const Login = () => {
       }).then((respon) => {
         console.log(respon);
         if (respon.data.length !== 0) {
+          window.localStorage.setItem('token',respon.data[0].idGereja);
           nav("/home");
         }
         else {
@@ -50,8 +52,8 @@ const Login = () => {
 
   }
   /*  */
+  
   return (
-
     <center>
 
       <div className="loginContainer">

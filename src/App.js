@@ -2,7 +2,7 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import Home from './components/home'
 import Login from './components/login'
-import KegiatanUmum from "./kegiatanUmum";
+import KegiatanUmum from "./components/kegiatanUmum";
 
 function App() {
   return (
