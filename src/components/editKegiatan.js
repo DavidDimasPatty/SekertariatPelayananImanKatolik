@@ -138,8 +138,8 @@ const EditKegiatan = () => {
                 <div className='field'>
                     <label className='label'>Tanggal</label>
                     <input className="input" 
-                    type="date"
-                     value={tanggal.toString("yyyy-MM-dd")}
+                    type="datetime-local"
+                     value={tanggal.slice(0, 19)}
                      onChange={(e) =>setTanggal(e.target.value)}
                      ></input>
                 </div>
