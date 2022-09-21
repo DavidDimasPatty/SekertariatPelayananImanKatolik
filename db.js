@@ -63,6 +63,13 @@ const userscheme = new Schema({
 }, { collection: 'user' });
 var user = mongoose.model('user', userscheme)
 
+const userUmumscheme = new Schema({
+    idUser: ObjectID,
+    idKegiatan: ObjectID,
+    tanggalDaftar:Date
+}, { collection: 'userUmum' });
+var userUmum = mongoose.model('userUmum', userUmumscheme)
+
 
 
 async function getAllGereja() {
@@ -116,6 +123,33 @@ async function getAllUmum(id) {
     })
     return arr
 }
+
+async function getAllUserKegiatan(id) {
+    var arr = []
+    console.log(id);
+    await userUmum.aggregate(
+   [ 
+    {
+        $match: 
+            { idKegiatan: id }
+        
+    },
+    {
+        $lookup: {
+          from: "user",
+          localField: "idUser",
+          foreignField: "_id",
+          as: "members"
+        }
+      }],
+    ).then((res) => {
+        arr = res;
+    }).catch((e) => {
+        console.log(e)
+    })
+    return arr
+}
+
 
 async function getIdUmum(id) {
     var arr = [];
@@ -292,5 +326,6 @@ module.exports = {
     getIdUmum: getIdUmum,
     updateKegiatan: updateKegiatan,
     addKegiatan:addKegiatan,
-    deletekegiatan:deletekegiatan
+    deletekegiatan:deletekegiatan,
+    getAllUserKegiatan:getAllUserKegiatan
 }

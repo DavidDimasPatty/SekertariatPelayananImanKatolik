@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useParams } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-const KegiatanUmum = () => {
+const InfoDetail = () => {
     const [gereja, setGereja] = useState([]);
     const nav = useNavigate();
-
+    const {id}=useParams();
     useEffect(() => {
-        getAllGereja();
+        getAllEnrollUser();
     }, [])
 
     const devEnv = process.env.NODE_ENV !== "production";
@@ -21,10 +21,10 @@ const KegiatanUmum = () => {
         }).then(window.location.href = "/kegiatanumum")
     }
 
-    const getAllGereja = async () => {
-        await axios.get(`${devEnv ? process.env.REACT_APP_DEV_URL : process.env.REACT_APP_PROD_URL}/getumum`, {
+    const getAllEnrollUser = async () => {
+        await axios.get(`${devEnv ? process.env.REACT_APP_DEV_URL : process.env.REACT_APP_PROD_URL}/getuserkegiatan`, {
             params: {
-                id: localStorage.getItem('token')
+                id: id
             }
         }).
             then((res) => {
@@ -72,7 +72,7 @@ const KegiatanUmum = () => {
                             <td>{Gereja.lokasi}</td>
                             <td>{Gereja.tanggal}</td>
                             <td>
-                                <Link to={`/infokegiatan/${Gereja._id}`} className='button is-small is-info'>Info Detail</Link>
+                                <Link to={`/editgereja/${Gereja._id}`} className='button is-small is-info'>Info Detail</Link>
                                 <Link to={`/editkegiatan/${Gereja._id}`} className='button is-small is-info'>Edit</Link>
                                 <button onClick={() => deleteGereja(Gereja._id)} className='button is-small is-danger'>Delete</button>
                             </td>
@@ -87,4 +87,4 @@ const KegiatanUmum = () => {
     )
 }
 
-export default KegiatanUmum
+export default InfoDetail

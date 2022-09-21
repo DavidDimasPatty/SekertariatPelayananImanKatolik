@@ -27,6 +27,13 @@ app.get('/api/getgereja',function (req,res){
     })
 });
 
+app.get('/api/getuserkegiatan',function (req,res){
+
+  dbm.getAllUserKegiatan(req.query.id).then((result)=>{
+      res.send(result)
+  })
+});
+
 app.get('/api/getumum',function (req,res){
 
   dbm.getAllUmum(req.query.id).then((result)=>{
