@@ -42,21 +42,16 @@ const InfoDetail = () => {
     return (
         <div>
 
-            <Link to="/home" className='button is-primary mt-2 mr-3 mb-3'>Back To Home</Link>
-            <Link to={"/addkegiatan/"+localStorage.getItem("token")} className='button is-primary mt-2'>Add Kegiatan</Link>
+            <Link to={"/kegiatanUmum/"} className='button is-primary mt-2 mr-3 mb-3'>Back To Kegiatan Umum</Link>
+           
             <table className='table is-stripped is-fullwidth'>
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Id Kegiatan</th>
-                        <th>Nama Kegiatan</th>
-                        <th>Tema Kegiatan</th>
-                        <th>Deskripsi Kegiatan</th>
-                        <th>Jenis Kegiatan</th>
-                        <th>Kapasitas</th>
-                        <th>Lokasi</th>
-                        <th>Tanggal</th>
-                        <th>Action</th>
+                        <th>Id User</th>
+                        <th>Nama</th>
+                        <th>Email</th>
+                        <th>Tanggal Daftar</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -64,17 +59,13 @@ const InfoDetail = () => {
                         <tr key={Gereja._id}>
                             <td>{index + 1}</td>
                             <td>{Gereja._id}</td>
-                            <td>{Gereja.namaKegiatan}</td>
-                            <td>{Gereja.temaKegiatan}</td>
-                            <td>{Gereja.deskripsiKegiatan}</td>
-                            <td>{Gereja.jenisKegiatan}</td>
-                            <td>{Gereja.kapasitas}</td>
-                            <td>{Gereja.lokasi}</td>
-                            <td>{Gereja.tanggal}</td>
+                            <td>{Gereja.members[0].name}</td>
+                            <td>{Gereja.members[0].email}</td>
+                            <td>{Gereja.tanggalDaftar}</td>
                             <td>
-                                <Link to={`/editgereja/${Gereja._id}`} className='button is-small is-info'>Info Detail</Link>
-                                <Link to={`/editkegiatan/${Gereja._id}`} className='button is-small is-info'>Edit</Link>
-                                <button onClick={() => deleteGereja(Gereja._id)} className='button is-small is-danger'>Delete</button>
+                               
+                            <button onClick={() => deleteGereja(Gereja._id)} className='button is-small is-info' disabled>Accept</button>
+                                <button onClick={() => deleteGereja(Gereja._id)} className='button is-small is-danger'>Reject</button>
                             </td>
 
                         </tr>
